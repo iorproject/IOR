@@ -2,6 +2,8 @@ package main.java.DB.demo;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import main.java.DB.MessageObject;
@@ -31,11 +33,17 @@ public class Demo {
 
 
 		// "DELETE" (the fb4jDemo-root)
-		FirebaseResponse response = firebase.delete();
+		FirebaseResponse response;
+
+        Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
+        List<String> dataMap2 = new LinkedList<String>();
+        List<String> dataMap3 = new LinkedList<String>();
+        List<String> dataMap4 = new LinkedList<String>();
+        List<String> dataMap5 = new LinkedList<String>();
 
 
+/*
 		// "PUT" (test-map into the fb4jDemo-root)
-		Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
 		dataMap.put( "PUT-root", "This was PUT into the fb4jDemo-root" );
 		response = firebase.put( dataMap );
 		System.out.println( "\n\nResult of PUT (for the test-PUT to fb4jDemo-root):\n" + response );
@@ -46,9 +54,114 @@ public class Demo {
 		response = firebase.get();
 		System.out.println( "\n\nResult of GET:\n" + response );
 		System.out.println("\n");
+*//*
+            dataMap4.add("סה\"כ");
+            dataMap4.add("סך הכל");
+            dataMap4.add("סך-הכל");
+            dataMap4.add("totals");
+            dataMap4.add("total");
+
+            dataMap3.add("total incl. tax");
+            dataMap3.add("total incl. taxes");
+            dataMap3.add("total include tax");
+            dataMap3.add("total include taxes");
 
 
+        dataMap2.add("מחיר סופי");
+        dataMap2.add("order total");
+        dataMap2.add("סכום");
+        dataMap2.add("תשלום");
+        dataMap2.add("סה\"כ מחיר");
+        dataMap2.add("סה\"כ תקבולים");
+        dataMap2.add("סה\"כ לתקבולים");
+        dataMap2.add("סה\"כ כללי");
+        dataMap2.add("סה\"כ לתשלום");
+        dataMap2.add("סה\"כ תשלום");
+        dataMap2.add("סך הכל מחיר");
+        dataMap2.add("סך הכל לתקבולים");
+        dataMap2.add("סך הכל תקבולים");
+        dataMap2.add("סך הכל כללי");
+        dataMap2.add("סך הכל לתשלום");
+        dataMap2.add("סך הכל תשלום");
+        dataMap2.add("סך-הכל מחיר");
+        dataMap2.add("סך-הכל תקבולים");
+        dataMap2.add("סך-הכל לתקבולים");
+        dataMap2.add("סך-הכל כללי");
+        dataMap2.add("סך-הכל לתשלום");
+        dataMap2.add("סך-הכל תשלום");
+        dataMap2.add("הסכום הכולל");
+        dataMap2.add("סך-תשלום");
+
+        dataMap5.add("מחיר סופי כולל מע\"מ");
+        dataMap5.add("מחיר סופי כולל מיסים");
+        dataMap5.add("order total incl. tax");
+        dataMap5.add("order total incl. taxes");
+        dataMap5.add("order total include taxes");
+        dataMap5.add("order total include tax");
+        dataMap5.add("סכום כולל מע\"מ");
+        dataMap5.add("סכום כולל מיסים");
+        dataMap5.add("תשלום כולל מע\"מ");
+        dataMap5.add("תשלום כולל מיסים");
+        dataMap5.add("סה\"כ מחיר כולל מע\"מ");
+        dataMap5.add("סה\"כ מחיר כולל מיסים");
+        dataMap5.add("סה\"כ תקבולים כולל מע\"מ");
+        dataMap5.add("סה\"כ תקבולים כולל מיסים");
+        dataMap5.add("סה\"כ לתקבולים כולל מיסים");
+        dataMap5.add("סה\"כ לתקבולים כולל מע\"מ");
+        dataMap5.add("סה\"כ כולל מיסים");
+        dataMap5.add("סה\"כ כולל מע\"מ");
+        dataMap5.add("סה\"כ כללי כולל מיסים");
+        dataMap5.add("סה\"כ כללי כולל מע\"מ");
+        dataMap5.add("סה\"כ לתשלום כולל מיסים");
+        dataMap5.add("סה\"כ לתשלום כולל מע\"מ");
+        dataMap5.add("סה\"כ תשלום כולל מיסים");
+        dataMap5.add("סה\"כ תשלום כולל מע\"מ");
+        dataMap5.add("סך הכל מחיר כולל מע\"מ");
+        dataMap5.add("סך הכל מחיר כולל מיסים");
+        dataMap5.add("סך הכל לתקבולים כולל מע\"מ");
+        dataMap5.add("סך הכל לתקבולים כולל מיסים");
+        dataMap5.add("סך הכל תקבולים כולל מע\"מ");
+        dataMap5.add("סך הכל תקבולים כולל מיסים");
+        dataMap5.add("סך הכל כולל מיסים");
+        dataMap5.add("סך הכל כולל מע\"מ");
+        dataMap5.add("סך הכל כללי כולל מיסים");
+        dataMap5.add("סך הכל כולל מע\"מ");
+        dataMap5.add("סך הכל כללי כולל מיסים");
+        dataMap5.add("סך הכל כללי כולל מע\"מ");
+        dataMap5.add("סך הכל כללי כולל מיסים");
+        dataMap5.add("סך הכל כללי כולל מע\"מ");
+        dataMap5.add("סך הכל לתשלום כולל מיסים");
+        dataMap5.add("סך הכל לתשלום כולל מע\"מ");
+        dataMap5.add("סך הכל תשלום כולל מיסים");
+        dataMap5.add("סך הכל תשלום כולל מע\"מ");
+        dataMap5.add("סך-הכל מחיר כולל מע\"מ");
+        dataMap5.add("סך-הכל מחיר כולל מיסים");
+        dataMap5.add("סך-הכל תקבולים כולל מע\"מ");
+        dataMap5.add("סך-הכל לתקבולים כולל מע\"מ");
+        dataMap5.add("סך-הכל תקבולים כולל מיסים");
+        dataMap5.add("סך-הכל לתקבולים כולל מיסים");
+        dataMap5.add("סך-הכל כולל מיסים");
+        dataMap5.add("סך-הכל כולל מע\"מ");
+        dataMap5.add("סך-הכל כללי כולל מיסים");
+        dataMap5.add("סך-הכל כללי כולל מע\"מ");
+        dataMap5.add("סך-הכל לתשלום כולל מיסים");
+        dataMap5.add("סך-הכל לתשלום כולל מע\"מ");
+        dataMap5.add("סך-הכל תשלום כולל מיסים");
+        dataMap5.add("סך-הכל תשלום כולל מע\"מ");
+        dataMap5.add("הסכום הכולל מיסים");
+        dataMap5.add("הסכום הכולל מע\"מ");
+        dataMap5.add("סך-תשלום כולל מיסים");
+        dataMap5.add("סך-תשלום כולל מע\"מ");
+
+        dataMap.put("10",dataMap2);
+        dataMap.put("15",dataMap3);
+        dataMap.put("5",dataMap4);
+        dataMap.put("20",dataMap5);
+        firebase.put( "Identicators/Totals", dataMap );*/
+        response = firebase.get( "Identicators/Totals");
+        System.out.println(response);
 		// "PUT" (test-map into a sub-node off of the fb4jDemo-root)
+/*
 		dataMap = new LinkedHashMap<String, Object>();
 		dataMap.put( "Key_1", "This is the first value" );
 		dataMap.put( "Key_2", "This is value #2" );
@@ -102,6 +215,7 @@ public class Demo {
 			System.out.println("\n\nResult of Signing Up:\n failed, because no API Key was provided.");
 			System.out.println("\n");
 		}
+*/
 
 	}
 	
