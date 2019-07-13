@@ -5,6 +5,8 @@ import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import dbObjects.ApproveIndicator;
+import dbObjects.TotalIndicator;
 import main.java.DB.error.FirebaseException;
 import main.java.DB.error.JacksonUtilityException;
 import main.java.DB.model.FirebaseResponse;
@@ -32,7 +34,7 @@ public class FirebaseDao {
         }
         return firebaseDao;
     }
-/*
+
 
     public void saveReceipts(String userIdenticator ,List<Receipt> receipts) throws JacksonUtilityException, UnsupportedEncodingException, FirebaseException {
         final String userPath = "users";
@@ -41,19 +43,21 @@ public class FirebaseDao {
         firebase.put(userPath,userReceiptsMap);
     }
 
-    public List<ApproveIdenticator> getApprovalIdenticators() throws UnsupportedEncodingException, FirebaseException {
+    public List<ApproveIndicator> getApprovalIndicators() throws UnsupportedEncodingException, FirebaseException {
         final String approveIdenticatorPath = "identcators/approve";
         response = firebase.get( approveIdenticatorPath );
         System.out.println( "\n\nResult of GET (for the test-PUT):\n" + response );
         System.out.println("\n");
+        return null;
     }
 
 
-    public List<TotalIdenticator> getTotalIdenticators() throws UnsupportedEncodingException, FirebaseException {
+    public List<TotalIndicator> getTotalIndicator() throws UnsupportedEncodingException, FirebaseException {
         final String totalIdenticatorPath = "identcators/totals";
         response = firebase.get( totalIdenticatorPath );
         System.out.println( "\n\nResult of GET (for the test-PUT):\n" + response );
         System.out.println("\n");
+        return null;
     }
-    */
+
 }
