@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import main.java.DB.MessageObject;
 import main.java.DB.error.FirebaseException;
 import main.java.DB.error.JacksonUtilityException;
 import main.java.DB.model.FirebaseResponse;
@@ -52,9 +53,10 @@ public class Demo {
 		dataMap.put( "Key_1", "This is the first value" );
 		dataMap.put( "Key_2", "This is value #2" );
 		Map<String, Object> dataMap2 = new LinkedHashMap<String, Object>();
-		dataMap2.put( "Sub-Key1", "This is the first sub-value" );
-		dataMap.put( "Key_3", dataMap2 );
-		response = firebase.put( "test-PUT", dataMap );
+		dataMap2.put( "Sub-Key1", new MessageObject(1,"d") );
+        System.out.println(dataMap.toString());
+		dataMap.put( "Key_3", dataMap2);
+		response = firebase.put( "test-PUT/Omer/", dataMap );
 		System.out.println( "\n\nResult of PUT (for the test-PUT):\n" + response );
 		System.out.println("\n");
 
