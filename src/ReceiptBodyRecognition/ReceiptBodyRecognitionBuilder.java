@@ -1,7 +1,7 @@
 package ReceiptBodyRecognition;
 
 import dbObjects.ApproveIndicator;
-import dbObjects.TotalIndicator;
+import main.java.DB.Entities.TotalIndicator;
 
 import java.util.List;
 
