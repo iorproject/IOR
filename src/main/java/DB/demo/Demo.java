@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import main.java.DB.Entities.TotalIndicator;
+import main.java.DB.FirebaseDao;
 import main.java.DB.MessageObject;
 import main.java.DB.error.FirebaseException;
 import main.java.DB.error.JacksonUtilityException;
@@ -158,9 +160,12 @@ public class Demo {
         dataMap.put("5",dataMap4);
         dataMap.put("20",dataMap5);
         firebase.put( "Identicators/Totals", dataMap );*/
-        response = firebase.get( "Identicators/Totals");
-        System.out.println(response);
-		// "PUT" (test-map into a sub-node off of the fb4jDemo-root)
+        /*response = firebase.get( "Identicators/Totals");
+        System.out.println(response);*/
+        FirebaseDao dao = FirebaseDao.getInstance();
+        TotalIndicator d = dao.getTotalIndicator();
+        System.out.println(d);
+        // "PUT" (test-map into a sub-node off of the fb4jDemo-root)
 /*
 		dataMap = new LinkedHashMap<String, Object>();
 		dataMap.put( "Key_1", "This is the first value" );

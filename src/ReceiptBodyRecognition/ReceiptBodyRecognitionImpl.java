@@ -1,7 +1,7 @@
 package ReceiptBodyRecognition;
 
 import dbObjects.ApproveIndicator;
-import dbObjects.TotalIndicator;
+import main.java.DB.Entities.TotalIndicator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class ReceiptBodyRecognitionImpl implements IReceiptBodyRecognition {
 
     private boolean recognizeTotal(String content) {
 //        totalIdentifier = totalIndicators.stream().filter(content::contains).findFirst().get();
-        totalIdentifier = String.valueOf(totalIndicators.stream().filter(t -> content.contains(t.getIndicators())).findFirst().get());
+//        totalIdentifier = String.valueOf(totalIndicators.stream().filter(t -> content.contains(t.getIndicators())).findFirst().get());
         int index = content.lastIndexOf(totalIdentifier);
         return findPrice(content.substring(index)) && totalIdentifier.equals("");
     }

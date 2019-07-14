@@ -1,18 +1,13 @@
 package main.java.DB;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.Firestore;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.FirestoreClient;
+import com.google.gson.Gson;
 import dbObjects.ApproveIndicator;
-import dbObjects.TotalIndicator;
+import main.java.DB.Entities.TotalIndicator;
 import main.java.DB.error.FirebaseException;
 import main.java.DB.error.JacksonUtilityException;
 import main.java.DB.model.FirebaseResponse;
 import main.java.DB.service.Firebase;
 
-import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -52,12 +47,13 @@ public class FirebaseDao {
     }
 
 
-    public List<TotalIndicator> getTotalIndicator() throws UnsupportedEncodingException, FirebaseException {
-        final String totalIdenticatorPath = "identcators/totals";
-        response = firebase.get( totalIdenticatorPath );
+    public TotalIndicator getTotalIndicator() throws UnsupportedEncodingException, FirebaseException {
+        final String totalIndicatorPath = "identcators/totals/5";
+        response = firebase.get( totalIndicatorPath );
         System.out.println( "\n\nResult of GET (for the test-PUT):\n" + response );
         System.out.println("\n");
-        return null;
+        Gson json = new Gson();
+        return json.fromJson(response.toString(),TotalIndicator.class);
     }
 
 }
