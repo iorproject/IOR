@@ -1,11 +1,13 @@
 <component name="libraryTable">
   <library name="gmail">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/main/resources/gmail/google-api-services-gmail-v1-rev105-1.25.0-javadoc.jar!/" />
-      <root url="jar://$PROJECT_DIR$/src/main/resources/gmail/google-api-services-gmail-v1-rev105-1.25.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/src/main/resources/gmail/google-api-services-gmail-v1-rev105-1.25.0-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/src/main/resources/gmail" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src/main/resources/gmail" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/src/main/resources/gmail" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/src/main/resources/gmail" recursive="false" type="SOURCES" />
   </library>
 </component>
