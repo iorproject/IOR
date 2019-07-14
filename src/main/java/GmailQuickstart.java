@@ -1,111 +1,75 @@
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.Base64;
-import com.google.api.client.util.StringUtils;
-import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.GmailScopes;
-import com.google.api.services.gmail.model.Label;
-import com.google.api.services.gmail.model.ListLabelsResponse;
-import com.google.api.services.gmail.model.Message;
-import com.google.api.services.gmail.model.MessagePart;
-import com.google.common.collect.Lists;
+package main.java;
+import gmailApiWrapper.Attachment;
+import gmailApiWrapper.IEmailMessage;
+import gmailApiWrapper.GmailApiWrapper;
+import org.apache.tika.Tika;
+import org.apache.tika.metadata.Metadata;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
-import java.util.Arrays;
-import java.util.Collections;
+import java.io.*;
 import java.util.List;
 
 public class GmailQuickstart {
-    private static final String APPLICATION_NAME = "Gmail API";
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
-    /**
-     * Global instance of the scopes required by this quickstart.
-     * If modifying these scopes, delete your previously saved tokens/ folder.
-     */
-    private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS, GmailScopes.GMAIL_INSERT, GmailScopes.MAIL_GOOGLE_COM);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String USER = "ior46800@gmail.com";
+    private static Tika tikaParser = new Tika();  // for get the string from byte[]. external jar.
+    private static Metadata metadata = new Metadata();  // for get the string from byte[]. external jar.
 
-    /**
-     * Creates an authorized Credential object.
-     * @param HTTP_TRANSPORT The network HTTP Transport.
-     * @return An authorized Credential object.
-     * @throws IOException If the credentials.json file cannot be found.
-     */
-    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-        // Load client secrets.
-        InputStream in = GmailQuickstart.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-        if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
-        }
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    public static void main(String[] args) {
 
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-                .setAccessType("offline")
-                .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
-    }
+        tikaParser.setMaxStringLength(-1);
 
-    public static void main(String... args) throws IOException, GeneralSecurityException {
-        // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Gmail service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+        try {
+            GmailApiWrapper gmailApiWrapper = new GmailApiWrapper();
+            List<IEmailMessage> messages = gmailApiWrapper.getMessages(USER);
+            for (IEmailMessage message : messages) {
 
-        // Print the labels in the user's account.
-        String user = "me";
-        ListLabelsResponse listResponse = service.users().labels().list(user).execute();
-        List<Label> labels = listResponse.getLabels();
-        if (labels.isEmpty()) {
-            System.out.println("No labels found.");
-        } else {
-            System.out.println("Labels:");
-            for (Label label : labels) {
-                System.out.printf("- %s\n", label.getName());
+                if (message.getAttachments().size() > 0) {
+
+                    for (Attachment attachment : message.getAttachments()) {
+
+                        byte[] dataBytes = gmailApiWrapper.getAttachmentBytes(attachment,
+                                USER, message);
+
+
+                        String data = getStringFromBytes(dataBytes);
+                        int x = 5;
+                    }
+                }
+
             }
         }
+        catch (Exception e) {
 
-        List<Message> messages = MyClass.listMessagesWithLabels(service, user, Collections.singletonList("INBOX"));
-        for (Message message : messages)
-        {
-
-            Message m = service.users().messages().get(user, message.getId()).execute();
-            MessagePart parts = m.getPayload();
-            MessagePart part = parts.getParts().get(0);
-            MessagePart par = null;
-            if(part.getParts() != null)
-                par = part.getParts().get(0);
-            System.out.println(StringUtils.newStringUtf8(Base64.decodeBase64(part.getBody().getData())));
-            if(par != null)
-            System.out.println(StringUtils.newStringUtf8(Base64.decodeBase64(par.getBody().getData())));
-
-
-//            essage m = service.users().messages().get(user, message.getId());
-//            // m.Payload is populated now.
-////          for (MessagePart part : m.getPayload().getParts())
-//////            {
-//////                byte[] data = Base64.decodeBase64(part.getBody().getData());
-//////                //String decodedString = AudioFormat.Encoding. .UTF8.GetString(data);
-//////                System.out.println(data);
-//////            }M
+            String error = e.getMessage();
+            int d = 4;
         }
+
     }
+
+    private static String getStringFromBytes(byte[] data) {
+
+        String content = null;
+        InputStream inputStream = new ByteArrayInputStream(data);
+        try {
+            content = tikaParser.parseToString(inputStream, metadata);
+            content = content.replaceAll("\r", "")
+                    .replaceAll("\t", "")
+                    .replaceAll("\n +", "\n")
+                    .replaceAll("\n+", "\n");
+        }
+        catch (Exception e) {
+
+        }
+
+        return content;
+
+    }
+
 }
+
+
+
+
+
+
+
