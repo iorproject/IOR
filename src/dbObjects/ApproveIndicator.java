@@ -1,22 +1,14 @@
 package dbObjects;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Map;
 
-public class ApproveIndicator {
-    private List<String> indicators;
+public class ApproveIndicator implements Serializable{
+    private Map<String,Integer> approvalList;
     private int score;
 
-    public ApproveIndicator(List<String> indicators, int score) {
-        this.indicators = indicators;
-        this.score = score;
-    }
-
-    public List<String> getIndicators() {
-        return indicators;
-    }
-
-    public void setIndicators(List<String> indicators) {
-        this.indicators = indicators;
+    public Map<String,Integer> getIndicators() {
+        return approvalList;
     }
 
     public int getScore() {

@@ -30,6 +30,13 @@ public class FirebaseDao {
         return firebaseDao;
     }
 
+    private String encodeString(String insertedData){
+        return insertedData.replaceAll("/","___");
+    }
+
+    private String decodeString(String retrievedData){
+        return retrievedData.replaceAll("___","/");
+    }
 
     public void saveReceipts(String userIdenticator ,List<Receipt> receipts) throws JacksonUtilityException, UnsupportedEncodingException, FirebaseException {
         final String userPath = "users";
@@ -38,22 +45,25 @@ public class FirebaseDao {
         firebase.put(userPath,userReceiptsMap);
     }
 
-    public List<ApproveIndicator> getApprovalIndicators() throws UnsupportedEncodingException, FirebaseException {
-        final String approveIdenticatorPath = "identcators/approve";
+    public ApproveIndicator getApprovalIndicators() throws UnsupportedEncodingException, FirebaseException {
+        final String approveIdenticatorPath = "Identicators";
         response = firebase.get( approveIdenticatorPath );
         System.out.println( "\n\nResult of GET (for the test-PUT):\n" + response );
         System.out.println("\n");
-        return null;
+        Gson json = new Gson();
+        String decodeString = decodeString(response.getRawBody());
+        return json.fromJson(decodeString,ApproveIndicator.class);
     }
 
 
     public TotalIndicator getTotalIndicator() throws UnsupportedEncodingException, FirebaseException {
-        final String totalIndicatorPath = "identcators/totals/5";
+        final String totalIndicatorPath = "Identicators";
         response = firebase.get( totalIndicatorPath );
         System.out.println( "\n\nResult of GET (for the test-PUT):\n" + response );
         System.out.println("\n");
         Gson json = new Gson();
-        return json.fromJson(response.toString(),TotalIndicator.class);
+        String decodeString = decodeString(response.getRawBody());
+        return json.fromJson(decodeString,TotalIndicator.class);
     }
 
 }

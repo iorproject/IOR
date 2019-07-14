@@ -1,14 +1,11 @@
 package main.java.DB.demo;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import dbObjects.ApproveIndicator;
 import main.java.DB.Entities.TotalIndicator;
 import main.java.DB.FirebaseDao;
-import main.java.DB.MessageObject;
 import main.java.DB.error.FirebaseException;
 import main.java.DB.error.JacksonUtilityException;
 import main.java.DB.model.FirebaseResponse;
@@ -41,10 +38,47 @@ public class Demo {
         List<String> dataMap2 = new LinkedList<String>();
         List<String> dataMap3 = new LinkedList<String>();
         List<String> dataMap4 = new LinkedList<String>();
-        List<String> dataMap5 = new LinkedList<String>();
+       // List<String> dataMap5 = new LinkedList<String>();
+        Map<String,Object> dataMap5 = new HashMap<>();
 
+        dataMap5.put("אישור הזמנה",15);
+        dataMap5.put("פרטי תשלום",15);
+        dataMap5.put("ship to",10);
+        dataMap5.put("Arriving",10);
+        dataMap5.put("Order",15);
+        dataMap5.put("מספר אישור",15);
+        dataMap5.put("כרטיס אשראי",15);
+        dataMap5.put("כרטיס האשראי",15);
+        dataMap5.put("אשראי",10);
+        dataMap5.put("התשלום",10);
+        dataMap5.put("האשראי",10);
+        dataMap5.put("תשלום",10);
+        dataMap5.put("כמות, מחיר",20);
+        dataMap5.put("קבלה",15);
+        dataMap5.put("הקבלה",15);
+        dataMap5.put("מזהה עסקה",15);
+        dataMap5.put("דמי משלוח",15);
+        dataMap5.put("דמי טיפול",15);
+        dataMap5.put("חשבונית",15);
+        dataMap5.put("חשבונית מס",30);
+        dataMap5.put("חשבונית מס-קבלה",30);
+        dataMap5.put("חשבונית קבלה",30);
+        dataMap5.put("מק\"ט",5);
+        dataMap5.put("תקבולים",10);
+        dataMap5.put("התקבולים",10);
+        dataMap5.put("משלוח",10);
+        dataMap5.put("הזמנה",10);
+        dataMap5.put("Item",15);
+        dataMap5.put("פריט",10);
+        dataMap5.put("מוצר",10);
+        dataMap5.put("פרטי הזמנה",30);
+        dataMap5.put("טיפול ומשלוח",15);
+        dataMap5.put("קוד מוצר",5);
 
+        dataMap5.put("חשבונית מס___קבלה",30);
+        dataMap5.put("עסקה___קבלה",20);
 /*
+
 		// "PUT" (test-map into the fb4jDemo-root)
 		dataMap.put( "PUT-root", "This was PUT into the fb4jDemo-root" );
 		response = firebase.put( dataMap );
@@ -56,8 +90,8 @@ public class Demo {
 		response = firebase.get();
 		System.out.println( "\n\nResult of GET:\n" + response );
 		System.out.println("\n");
-*//*
-            dataMap4.add("סה\"כ");
+*/
+/*            dataMap4.add("סה\"כ");
             dataMap4.add("סך הכל");
             dataMap4.add("סך-הכל");
             dataMap4.add("totals");
@@ -158,12 +192,13 @@ public class Demo {
         dataMap.put("10",dataMap2);
         dataMap.put("15",dataMap3);
         dataMap.put("5",dataMap4);
-        dataMap.put("20",dataMap5);
-        firebase.put( "Identicators/Totals", dataMap );*/
+        dataMap.put("20",dataMap5);*/
+        firebase.put( "Identicators/approvalList", dataMap5 );
         /*response = firebase.get( "Identicators/Totals");
         System.out.println(response);*/
+        //firebase.put( "Identicators/approvals", dataMap5 );
         FirebaseDao dao = FirebaseDao.getInstance();
-        TotalIndicator d = dao.getTotalIndicator();
+        ApproveIndicator d = dao.getApprovalIndicators();
         System.out.println(d);
         // "PUT" (test-map into a sub-node off of the fb4jDemo-root)
 /*
