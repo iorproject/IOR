@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GmailApiWrapper {
+public class GmailApiWrapper implements IEmailApi {
 
     private static final String APPLICATION_NAME = "Gmail API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance(); //JacksonFactory.getDefaultInstance();
@@ -73,6 +73,7 @@ public class GmailApiWrapper {
     }
 
 
+    @Override
     public List<IEmailMessage> getMessages(String userId) throws IOException{
 
         List<IEmailMessage> results = new ArrayList<>();
@@ -236,6 +237,7 @@ public class GmailApiWrapper {
         }
     }
 
+    @Override
     public byte[] getAttachmentBytes(Attachment attachment, String userId, IEmailMessage message) {
 
         MessagePartBody attachPart = null;
@@ -266,4 +268,5 @@ public class GmailApiWrapper {
 
         return fileByteArray;
     }
+
 }

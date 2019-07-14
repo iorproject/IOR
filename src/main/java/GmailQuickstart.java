@@ -1,7 +1,5 @@
 package main.java;
-import gmailApiWrapper.Attachment;
-import gmailApiWrapper.IEmailMessage;
-import gmailApiWrapper.GmailApiWrapper;
+import gmailApiWrapper.*;
 import org.apache.tika.Tika;
 import org.apache.tika.metadata.Metadata;
 
@@ -19,18 +17,16 @@ public class GmailQuickstart {
         tikaParser.setMaxStringLength(-1);
 
         try {
-            GmailApiWrapper gmailApiWrapper = new GmailApiWrapper();
-            List<IEmailMessage> messages = gmailApiWrapper.getMessages(USER);
+            IEmailApi emailApiWrapper = FactoryEmailApi.getEmailApiInstance("GmailApi");
+            List<IEmailMessage> messages = emailApiWrapper.getMessages(USER);
             for (IEmailMessage message : messages) {
 
                 if (message.getAttachments().size() > 0) {
 
                     for (Attachment attachment : message.getAttachments()) {
 
-                        byte[] dataBytes = gmailApiWrapper.getAttachmentBytes(attachment,
+                        byte[] dataBytes = emailApiWrapper.getAttachmentBytes(attachment,
                                 USER, message);
-
-
                         String data = getStringFromBytes(dataBytes);
                         int x = 5;
                     }
