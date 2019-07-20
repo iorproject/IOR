@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GmailQuickstart {
 
-    private static final String USER = "ior46800@gmail.com";
+    private static final String USER = "omerblechman@gmail.com";
     private static Tika tikaParser = new Tika();  // for get the string from byte[]. external jar.
     private static Metadata metadata = new Metadata();  // for get the string from byte[]. external jar.
 

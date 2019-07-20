@@ -5,6 +5,7 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -44,15 +45,38 @@ public class GmailApiWrapper {
 
     private Gmail service;
     private final NetHttpTransport HTTP_TRANSPORT;
+    private static final String ACCESS_TOKEN="ya29.GlxLByUeM22BYo-TmzwSSC6LSCWH_4naMi3J_TkOngflJQIzM3jz7tZBtUesOPRvoK_X-KsrfoXnIXh7gSYg1IeHgEC9kr09-f1Tfi_AkLywNSZfmqseuRLXJESZUg";
+    private static final String REFRESH_TOKEN="1/l60RQ1WQINlbcsDvmONwDPiTjt88lWx29BvSwdaJJw8";
+    private static final String CLIENT_SECRET="6C2okEplSBNFI8CQ9sr_m6gO";
+    private static final String CLIENT_ID="745146810127-qr5uhgmubru7mv835ftqb28mh9onerrh.apps.googleusercontent.com";
 
 
     public GmailApiWrapper() throws GeneralSecurityException, IOException {
 
         HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+        if (ACCESS_TOKEN != null) {
+            service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+        }
+        performRequest(HTTP_TRANSPORT, CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN, REFRESH_TOKEN);
     }
+
+
+    private void performRequest(final NetHttpTransport HTTP_TRANSPORT, String clientId, String clientSecret,String accessToken, String refreshToken) throws IOException {
+                Credential c = new GoogleCredential.Builder()
+                                .setJsonFactory(JSON_FACTORY)
+                                .setTransport(HTTP_TRANSPORT)
+                                .setClientSecrets(clientId,clientSecret)
+                                .build();
+                c.setAccessToken(accessToken);
+                c.setRefreshToken(refreshToken);
+                service = new Gmail.Builder(HTTP_TRANSPORT,JSON_FACTORY,c)
+                                .setApplicationName(APPLICATION_NAME)
+                                .build();
+            }
+
+
 
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
